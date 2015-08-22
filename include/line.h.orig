@@ -1,0 +1,76 @@
+/*
+** termcaps.h for 42sh in /home/guervi-a/rendu/Sys_Unix/PSU_2014_42sh/include
+** 
+** Made by Alexis Guerville
+** Login   <guervi_a@epitech.net>
+** 
+** Started on  Mon May  4 17:03:06 2015 Alexis Guerville
+<<<<<<< HEAD
+** Last update Thu May 21 19:12:15 2015 Alexis Guerville
+=======
+** Last update Fri May 22 13:16:13 2015 Alexis Guerville
+>>>>>>> origin/multi-line
+*/
+
+#ifndef			TERMCAPS_H_
+
+# define		TERMCAPS_H_
+
+#include		<termios.h>
+#include		<unistd.h>
+
+# define K_LEFT		4479771
+# define K_RIGHT	4414235
+# define K_DEL		127
+# define K_UP		4283163
+# define K_DOWN		4348699
+# define CTRL_A		1
+# define CTRL_E		5
+# define CTRL_B		2
+# define ALT_B		25115
+# define CTRL_F		6
+# define ALT_F		26139
+# define CTRL_U		21
+# define CTRL_K		11
+# define CTRL_W		23
+# define CTRL_L		12
+# define ENTER		10
+# define CTRL_D		4
+
+typedef struct		s_line
+{
+  int			length;
+  struct termios        save;
+  struct termios	new;
+  char			*cmd;
+  int			keys[15];
+  int			pos;
+}			t_line;
+
+int			keys(t_line *line, char key[]);
+int			get_termcaps(char **env, t_line *line);
+int			set_termcaps(int status, t_line *line);
+char			*line_edition(char **env);
+int			cap(char *str);
+void			init_actions(int (*key_actions[15])(t_line *line));
+void			init_keys(int keys[15]);
+
+int			get_width(void);
+int		        clear_display(t_line *line);
+int			add_char(t_line *line, int buffer);
+int			del_char(t_line *line);
+int		        move_to_cursor(t_line *line);
+int		        move_left(t_line *line);
+int		        move_right(t_line *line);
+int		        move_start(t_line *line);
+int		        move_start_word(t_line *line);
+int		        move_end_word(t_line *line);
+int		        move_end(t_line *line);
+int		        clear_line(t_line *line);
+int		        clear_scrn(t_line *line);
+int		        clear_end_line(t_line *line);
+int		        clear_start_line(t_line *line);
+int			history_up(t_line *line);
+int			history_down(t_line *line);
+
+#endif			/* !TERMCAPS_H_ */

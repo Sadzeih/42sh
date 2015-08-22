@@ -1,0 +1,103 @@
+Pour compiler :
+make re DEBUG=yes COLOR=yes && make clean
+
+Dépôt :
+to get the test script :
+      git submodule init
+      git submodule update
+
+"NORME" :
+    - Si une fonction failed et qu'elle doit exit
+	      On envoie une valeur négative et elle renverra la valeur absolue
+    - Si une fonction failed (sans exit)
+      	 On renvoie 1
+
+Pour suite :
+     ls ;; ls ==> Disabled to avoid errors
+     ls ; | ls
+     cat /dev/urandom | ./42sh
+     Gérer les valeurs de retour : echo [programme qui segfault] | ./42sh && echo $?
+     Job control : Make CTRL+Z work (un-SIG_IGN SIGSTOP in init_signal_prgrm)
+     Gérer TOUS les messages d'erreurs avec la return value
+     Exemples :
+	128 + 11	: Segfault
+	128 + 24 (152)  : Sigxcpu
+     Charger .myshrc au démarrage
+     Mettre $USER && $HOME au démarrage avec la structure utmp
+     PATH=lol ls
+     Prompt : 
+          Variable PS1
+          Numéro de la ligne
+          $USER@$PWD ($ || #) >
+     Parsing :
+        " ", ' ', \
+	Lex et Yacc !
+	Flex et Bison
+
+Tests:
+	!-9999999999999999999999999
+	!999999999999999999999999999
+	!:999999999999999999999999999
+	ls *.c
+	ls [a-z]?*
+	ls [a-z]*
+	ls [rrgeger]
+	echo $HOME
+	echo $HOME *
+	echo $chiasse
+	echo $HOME $chiass
+	echo $HOME $HOME
+	ls ?
+Bonus :
+  Historique :
+    Features :
+       !!	# repeat the last command
+       !-n	# repeat the n last command
+       !n	# repeat the n first command
+       !texte	# repeat the last command "texte"
+       !?texte	# repeat the last command containt "texte"
+       !:n	# repeat the n word of the last command
+       !$	# repeat the last word of the last command
+       !*	# repeat the argument of the last command
+
+Globbing 
+  BUG : Segfault ==> cat /dev/urandom | ./42sh
+  BUG : Fix unsetenv HOME && setenv HOME && ~ ==> Check que val_env[0] != '\0'
+  Features :
+	* replace by all result found
+	[] search with a letter under []
+	{} search a word under {}
+	^ exclude of the result exemple ([^ab]*) result is the file begun by c
+	? search result with any letter at the place of ?
+	$ (env et locale) search local or env variable
+	~ replace by variable home
+
+.42shrc :
+  Features :
+
+Variables locales :
+  Features :
+
+Alias :
+    - built-in : alias ==> ls --color && grep --color (dans fichier de conf)
+  Features :
+	   alias et unalias
+
+Fichier de conf :
+  Features :
+  	   execute les commandes écrites dans .42shrc au lancement du shell
+
+Edition de ligne :
+    - Déplacement CTRL + fleche
+	- Move cursor between lines ==> Unable to make it work
+    Features :
+	- Gauche && Droite
+	- Haut && Bas		(historique)
+	- CTRL + A && CTRL + E	(aller au début ou fin de ligne)
+	- CTRL + F && CTRL + B	(avancer ou reculer d'un caractère, pareil que gauche et droite)
+	- ALT + F && ALT + B	(avancer ou reculer d'un mot)
+	- CTRL + U		(supprimer toute la ligne)
+	- CTRL + K		(supprimer la ligne après le curseur)
+	- CTRL + W		(supprimer la ligne avant le curseur)
+	- CTRL + L		(clear la fenêtre)
+	- Multi-ligne
